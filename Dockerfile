@@ -19,12 +19,11 @@ RUN apt-get update && apt-get install -y \
 # 设置工作目录
 WORKDIR /app
 
-# 复制 package.json（不复制package-lock.json）
+# 复制 package.json 首先（利用Docker缓存）
 COPY package.json ./
 
-# 清理npm缓存并安装依赖
-RUN npm cache clean --force && \
-    npm install --only=production --omit=dev --no-package-lock
+# 安装依赖（让npm自动处理，不使用package-lock.json）
+RUN npm install --only=production --omit=dev
 
 # 复制应用代码
 COPY . .
