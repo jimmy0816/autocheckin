@@ -22,7 +22,7 @@ gcloud auth configure-docker asia-east1-docker.pkg.dev
 
 echo Artifact Registry设置完成！
 echo 现在可以使用以下命令构建和推送镜像：
-echo docker build -f Dockerfile.simple -t asia-east1-docker.pkg.dev/%PROJECT_ID%/autocheckin/autocheckin .
+echo docker build -f Dockerfile -t asia-east1-docker.pkg.dev/%PROJECT_ID%/autocheckin/autocheckin .
 echo docker push asia-east1-docker.pkg.dev/%PROJECT_ID%/autocheckin/autocheckin
 
 pause 

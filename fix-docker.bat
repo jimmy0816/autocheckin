@@ -8,8 +8,8 @@ if exist package-lock.json (
 )
 
 REM 使用简化的Dockerfile构建
-echo 使用Dockerfile.simple构建镜像...
-docker build -f Dockerfile.simple -t autocheckin .
+echo 使用Dockerfile构建镜像...
+docker build -f Dockerfile -t autocheckin .
 
 if %errorlevel% equ 0 (
     echo ✅ Docker构建成功！

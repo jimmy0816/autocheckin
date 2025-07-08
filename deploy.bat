@@ -7,7 +7,7 @@ echo 使用项目ID: %PROJECT_ID%
 
 REM 构建Docker镜像
 echo 构建Docker镜像...
-docker build -f Dockerfile.simple -t asia-east1-docker.pkg.dev/%PROJECT_ID%/autocheckin/autocheckin .
+docker build -f Dockerfile -t asia-east1-docker.pkg.dev/%PROJECT_ID%/autocheckin/autocheckin .
 
 REM 推送镜像到Artifact Registry
 echo 推送镜像到Artifact Registry...

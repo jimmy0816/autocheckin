@@ -7,7 +7,7 @@ steps:
       - "-t"
       - "asia-east1-docker.pkg.dev/$PROJECT_ID/autocheckin/autocheckin:$COMMIT_SHA"
       - "-f"
-      - "Dockerfile.simple"
+      - "Dockerfile"
       - "."
 
   # 步骤2: 推送Docker镜像到Artifact Registry
