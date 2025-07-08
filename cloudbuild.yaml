@@ -1,0 +1,34 @@
+steps:
+  # 构建Docker镜像
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/autocheckin', '.']
+  
+  # 推送镜像到Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/autocheckin']
+  
+  # 部署到Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'autocheckin'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/autocheckin'
+      - '--region'
+      - 'asia-east1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '2Gi'
+      - '--cpu'
+      - '2'
+      - '--timeout'
+      - '900'
+      - '--concurrency'
+      - '1'
+
+images:
+  - 'gcr.io/$PROJECT_ID/autocheckin' 

@@ -1,5 +1,5 @@
 require('dotenv').config({ override: true });
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer');
 
 async function createBrowser() {
     // 强制使用无头模式
@@ -17,11 +17,6 @@ async function createBrowser() {
             '--disable-features=VizDisplayCompositor'
         ]
     };
-
-    // 如果是本地环境，使用Chrome路径
-    if (process.env.NODE_ENV !== 'production' && !process.env.RAILWAY_ENVIRONMENT) {
-        options.executablePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
-    }
 
     return await puppeteer.launch(options);
 }
