@@ -8,34 +8,26 @@
 
 ## 部署方法
 
-### 方法1：使用 Cloud Build（推荐）
+### 方法1：使用部署脚本（推荐）
+
+#### Windows用户：
+双击运行 `deploy.bat` 文件
+
+#### Linux/Mac用户：
+```bash
+chmod +x deploy.sh
+./deploy.sh
+```
+
+### 方法2：手动部署
 
 1. **启用必要的API**：
    ```bash
-   gcloud services enable cloudbuild.googleapis.com
    gcloud services enable run.googleapis.com
    gcloud services enable containerregistry.googleapis.com
    ```
 
-2. **提交代码到GitHub**：
-   ```bash
-   git add .
-   git commit -m "Fix Cloud Run deployment issues"
-   git push origin main
-   ```
-
-3. **连接GitHub到Cloud Build**：
-   - 访问 [Cloud Build 触发器](https://console.cloud.google.com/cloud-build/triggers)
-   - 创建新触发器
-   - 连接GitHub仓库
-   - 选择 `cloudbuild.yaml` 作为构建配置
-
-4. **自动部署**：
-   - 每次推送到main分支都会自动构建和部署
-
-### 方法2：手动部署
-
-1. **构建并推送镜像**：
+2. **构建并推送镜像**：
    ```bash
    # 设置项目ID
    export PROJECT_ID=$(gcloud config get-value project)
@@ -47,7 +39,7 @@
    docker push gcr.io/$PROJECT_ID/autocheckin
    ```
 
-2. **部署到Cloud Run**：
+3. **部署到Cloud Run**：
    ```bash
    gcloud run deploy autocheckin \
      --image gcr.io/$PROJECT_ID/autocheckin \
@@ -59,6 +51,10 @@
      --timeout 900 \
      --concurrency 1
    ```
+
+### 方法3：使用 Cloud Build（需要额外配置）
+
+如果Cloud Build遇到日志存储桶问题，请使用上述方法1或方法2。
 
 ## 配置说明
 
