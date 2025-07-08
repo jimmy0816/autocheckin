@@ -7,7 +7,7 @@ echo 使用项目ID: %PROJECT_ID%
 
 REM 构建Docker镜像
 echo 构建Docker镜像...
-docker build -t gcr.io/%PROJECT_ID%/autocheckin .
+docker build -f Dockerfile.simple -t gcr.io/%PROJECT_ID%/autocheckin .
 
 REM 推送镜像到Container Registry
 echo 推送镜像到Container Registry...

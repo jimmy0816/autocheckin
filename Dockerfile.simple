@@ -19,15 +19,11 @@ RUN apt-get update && apt-get install -y \
 # 设置工作目录
 WORKDIR /app
 
-# 复制 package.json（不复制package-lock.json）
-COPY package.json ./
-
-# 清理npm缓存并安装依赖
-RUN npm cache clean --force && \
-    npm install --only=production --omit=dev --no-package-lock
-
 # 复制应用代码
 COPY . .
+
+# 安装依赖（让npm自动处理，不使用package-lock.json）
+RUN npm install --only=production --omit=dev
 
 # 创建非 root 用户
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \

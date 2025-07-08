@@ -6,6 +6,8 @@ steps:
       - "build"
       - "-t"
       - "gcr.io/$PROJECT_ID/autocheckin:$COMMIT_SHA"
+      - "-f"
+      - "Dockerfile.simple"
       - "."
 
   # 步骤2: 推送Docker镜像到Google Container Registry
