@@ -52,9 +52,30 @@ chmod +x deploy.sh
      --concurrency 1
    ```
 
-### 方法3：使用 Cloud Build（需要额外配置）
+### 方法3：使用 Cloud Build（推荐用于CI/CD）
 
-如果Cloud Build遇到日志存储桶问题，请使用上述方法1或方法2。
+1. **启用必要的API**：
+   ```bash
+   gcloud services enable cloudbuild.googleapis.com
+   gcloud services enable run.googleapis.com
+   gcloud services enable containerregistry.googleapis.com
+   ```
+
+2. **创建Cloud Build触发器**：
+   - 访问 [Cloud Build 触发器](https://console.cloud.google.com/cloud-build/triggers)
+   - 点击"创建触发器"
+   - 连接GitHub仓库
+   - 选择分支（通常是main）
+   - 选择构建配置：`cloudbuild.complete.yaml`
+   - 保存触发器
+
+3. **自动部署**：
+   - 每次推送到指定分支都会自动触发构建和部署
+   - 使用 `$COMMIT_SHA` 作为镜像标签，确保版本追踪
+
+4. **监控构建**：
+   - 在Cloud Build控制台查看构建日志
+   - 在Cloud Run控制台查看部署状态
 
 ## 配置说明
 
